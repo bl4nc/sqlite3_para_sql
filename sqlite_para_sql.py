@@ -1,5 +1,6 @@
 import sqlite3
-import MySqldb
+import mysql.connector
+from mysql.connector import errorcode
 
 caminho_db_sqlite3 = ("D:\CNPJS\DB\CNPJ_filtrado.db")
 
