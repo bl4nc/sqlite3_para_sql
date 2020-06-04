@@ -1,9 +1,10 @@
 import sqlite3
 import pymysql
+import time
 
 
-#caminho_db_sqlite3 = ("D:\CNPJS\DB\CNPJ_filtrado.db")
-caminho_db_sqlite3 = ("D:\CNPJS\DB\empresas_estado.db")
+caminho_db_sqlite3 = ("D:\CNPJS\DB\CNPJ_filtrado.db")
+#caminho_db_sqlite3 = ("D:\CNPJS\DB\empresas_estado.db")
 
 #Conexão com banco sqlite
 connSqlite = sqlite3.connect(caminho_db_sqlite3) #Conecta no banco sqlite3
@@ -88,6 +89,7 @@ while count != len(cnpj):
     cursorPhpmyadmin.execute(sql, valores)
     print ("Dado número",count + 1,"inserido!\n\n")
     count = count + 1
+    time.sleep(0.1)
 
 print ("Fazendo Commit...")    
 connPhpmyadmin.commit()
