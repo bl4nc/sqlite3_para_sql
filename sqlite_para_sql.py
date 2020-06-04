@@ -1,8 +1,6 @@
 import sqlite3
 import pymysql
 
-import time
-
 
 #caminho_db_sqlite3 = ("D:\CNPJS\DB\CNPJ_filtrado.db")
 caminho_db_sqlite3 = ("D:\CNPJS\DB\empresas_estado.db")
@@ -95,15 +93,5 @@ print ("Fazendo Commit...")
 connPhpmyadmin.commit()
 print ("Fechando Conexão!")
 connPhpmyadmin.close()
-
-
-
-
-
-
-
-
-#cursor.execute(sql)
-#db_connection.close()
-
+connSqlite.close()
 
