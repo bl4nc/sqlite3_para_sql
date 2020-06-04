@@ -12,6 +12,11 @@ connSqlite = sqlite3.connect(caminho_db_sqlite3) #Conecta no banco sqlite3
 cursorSqlite = connSqlite.cursor() #Usado para executar os scripts.
 #connSqlite.close #fecha conexão
 
+#conexão com phpmyadmin
+
+connPhpmyadmin = pymysql.connect(db='dados_empresas', user='root', passwd='')
+cursorPhpmyadmin = connPhpmyadmin.cursor()
+
 def tratarDados(linha):
     dado = (str(linha))
     dado = dado.replace("(","")
@@ -76,18 +81,20 @@ data_sit_especial = pegarDados("data_sit_especial","emp_acre")
 #Inserindo dados na tabela
 ##########################
 
-sql = "INSERT INTO empresas (cnpj,matriz_filial,razao_social,nome_fantasia,situacao,data_situacao,motivo_situacao,nm_cidade_exterior,cod_pais,nome_pais,cod_nat_juridica,data_inicio_ativ,cnae_fiscal,tipo_logradouro,logradouro,numero,complemento,bairro,cep,uf,cod_municipio,municipio,ddd_1,telefone_1,ddd_2,telefone_2,ddd_fax,num_fax,email,qualif_resp,capital_social,porte,opc_simples,data_opc_simples,data_exc_simples,opc_mei,sit_especial,data_sit_especial) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #Insersão de dados
+sql = "INSERT INTO emp_acre (cnpj,matriz_filial,razao_social,nome_fantasia,situacao,data_situacao,motivo_situacao,nm_cidade_exterior,cod_pais,nome_pais,cod_nat_juridica,data_inicio_ativ,cnae_fiscal,tipo_logradouro,logradouro,numero,complemento,bairro,cep,uf,cod_municipio,municipio,ddd_1,telefone_1,ddd_2,telefone_2,ddd_fax,num_fax,email,qualif_resp,capital_social,porte,opc_simples,data_opc_simples,data_exc_simples,opc_mei,sit_especial,data_sit_especial) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #Insersão de dados
 
 count = -1
 print (len(cnpj))
 while count != len(cnpj):
     valores = (cnpj[count],matriz_filial[count],razao_social[count],nome_fantasia[count],situacao[count],data_situacao[count],motivo_situacao[count],nm_cidade_exterior[count],cod_pais[count],nome_pais[count],cod_nat_juridica[count],data_inicio_ativ[count],cnae_fiscal[count],tipo_logradouro[count],logradouro[count],numero[count],complemento[count],bairro[count],cep[count],uf[count],cod_municipio[count],municipio[count],ddd_1[count],telefone_1[count],ddd_2[count],telefone_2[count],ddd_fax[count],num_fax[count],email[count],qualif_resp[count],capital_social[count],porte[count],opc_simples[count],data_opc_simples[count],data_exc_simples[count],opc_mei[count],sit_especial[count],data_sit_especial[count])
-    #cursorMySql.execute(sql, valores)
+    cursorPhpmyadmin.execute(sql, valores)
     print ("Dado número",count + 1,"inserido!\n\n")
     count = count + 1
 
-
-connSqlite.close #fecha conexão
+print ("Fazendo Commit...")    
+connPhpmyadmin.commit()
+print ("Fechando Conexão!")
+connPhpmyadmin.close()
 
 
 
